@@ -1,4 +1,4 @@
-function [FS] = enumStates(trials,arms)
+function [FS,numStates] = enumStates(trials,arms)
     t = trials;
     % Number of pieces to divide that total into trials
     % q_t = (s_1,s_2,f_1,f_2)
