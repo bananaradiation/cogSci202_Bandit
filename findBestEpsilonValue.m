@@ -1,5 +1,5 @@
 % finds the best valeu of epsilon given the optimal decision data
-function bestEps = findBestEpsilonValue(T,optimalDecisions, arms)
+function bestEps = findBestEpsilonValue(T,optimalDecisions, armDistributions)
     bestMatchPercent = 0;
     bestEps = 0;
     
@@ -7,11 +7,12 @@ function bestEps = findBestEpsilonValue(T,optimalDecisions, arms)
     for e = 0 : 0.001 : 1
         
         % for each value of epsilon, run epsilon-greedy model and get decisions
-        eGreedyDecisions = simulateEpsilonGreedy(T, arms, e);
+        eGreedyDecisions = simulateEpsilonGreedy(T, armDistributions, e);
         
         % compare decisions with optimal decisions
         matchPercent = compareDecisions(eGreedyDecisions, optimalDecisions);
-        if (matchPercent < bestMatchPercent)
+        if (matchPercent > bestMatchPercent)
+            %fprintf('match percent updated for epsilon = %f to %f\n', e, matchPercent);
             bestMatchPercent = matchPercent;
             bestEps = e;
         end
