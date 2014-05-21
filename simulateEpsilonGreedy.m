@@ -13,11 +13,7 @@ function decisions = simulateEpsilonGreedy(T, arms, epsilon)
         if (r < epsilon)
             % with probability epsilon, select randomly
             r = rand();
-            if (r > 0.5)
-                choice = 1;         % choose arm 1       
-            else
-                choice = 2;    % choose arm 2
-            end
+            choice = binornd(1,r) + 1; 
         else
             % with probability 1 - epsilon, exploit based on experience so far
             if ((s(1) / n(1)) > (s(2) / n(2)))                
