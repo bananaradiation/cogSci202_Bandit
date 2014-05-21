@@ -23,16 +23,17 @@ function [decisionMatrix] = optimalModel(T,arms,alpha,beta)
                idxS1 = vector(:,1);
                idxS2 = vector(:,2);
                idxF1 = vector(:,3);
-               idxF2 = vector(:,4);
-
+               idxF2 = vector(:,4);             
+               
                totalArm1 = s1+f1+alpha+beta;
                totalArm2 = s2+f2+alpha+beta;
                arm1Value = ((s1+alpha)/(totalArm1)) * valueMatrix(s1+1,idxS2,idxF1,idxF2) + ((f1+beta)/(totalArm1)) * valueMatrix(idxS1,idxS2,f1+1,idxF2) + ((s1+alpha)/(totalArm1));
-
+               
                arm2Value = ((s2+alpha)/(totalArm2)) * valueMatrix(idxS1,s2+1,idxF1,idxF2) + ((f2+beta)/(totalArm2)) * valueMatrix(idxS1,idxS2,idxF1,f2+1) + ((s2+alpha)/(totalArm2));
-
-               [valueMatrix(idxS1,idxS2,idxF1,idxF2), decisionMatrix(idxS1,idxS2,idxF1,idxF2)] = max([arm1Value,arm2Value]);
-           end
+               
+               [valueMatrix(idxS1,idxS2,idxF1,idxF2), decisionMatrix(idxS1,idxS2,idxF1,idxF2)] = max([arm1Value,arm2Value]); 
+           end  
         end
     end
 end
+
