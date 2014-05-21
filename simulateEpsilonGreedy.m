@@ -9,7 +9,7 @@ function decisions = simulateEpsilonGreedy(T, armDistributions, epsilon)
     decisions = zeros(T,1);    
     
     for t = 1 : T
-        r = rand(); 
+        r = rand();     % decide whether to explore randomly or exploit
         if (r < epsilon)
             % with probability epsilon, select randomly
             r = rand();
