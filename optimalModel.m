@@ -1,4 +1,4 @@
-function [decisionMatrix] = optimalModel(T,arms,alpha,beta)
+function [valueMatrix decisionMatrix] = optimalModel(T,arms,alpha,beta)
 
     deductionVector = [ [-1,0,0,0]; [0,-1,0,0]; [0,0,-1,0]; [0,0,0,-1]];
 
