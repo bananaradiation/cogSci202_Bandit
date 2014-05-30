@@ -8,9 +8,6 @@ function [decisionVector] = simulateFullLatentModel(numTrials,armDistributions)
     gamma = rand();
     
     for i = 1 : numTrials
-        state = 0;
-    
-        theta = 0;
         if (s(1) == s(2) && f(1) == f(2)) 
             state = 1;    % Same situation
             theta = 0.5;

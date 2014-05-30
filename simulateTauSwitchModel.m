@@ -1,4 +1,4 @@
-function [decisionVector] = simulateTauSwitchModel(numTrials,armDistributions)
+function [decisionVector] = simulateTauSwitchModel(numTrials,armDistributions, tau)
     numArms = size(armDistributions,1);
     s = zeros(numArms,1);
     f = zeros(numArms,1);
@@ -8,9 +8,12 @@ function [decisionVector] = simulateTauSwitchModel(numTrials,armDistributions)
     gamma = rand();
     
     for i = 1 : numTrials
-        state = 0;
-    
-        theta = 0;
+        if(i<tau)
+            z=0; %explore state
+        else
+            z=1; %exploit state
+        end
+            
         if (s(1) == s(2) && f(1) == f(2)) 
             state = 1;    % Same situation
             theta = 0.5;
@@ -21,7 +24,6 @@ function [decisionVector] = simulateTauSwitchModel(numTrials,armDistributions)
             state = 3;    % Arm 2 Better
             theta = 1 - gamma;
         else
-            z = binornd(1, 0.5);
             if (s(1) < s(2) && f(1) < f(2))
                 state = 4;     % Arm 1 Search
                 if (z == 0)
