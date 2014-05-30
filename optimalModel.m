@@ -1,11 +1,10 @@
-function [valueMatrix, decisionMatrix, mu1, mu2] = optimalModel(T,arms,alpha,beta)
+function [decisions,rewards, mu1, mu2] = optimalModel(T,arms,alpha,beta)
 
     mu1 = betarnd(alpha,beta);
     mu2 = betarnd(alpha,beta);
     deductionVector = [ [-1,0,0,0]; [0,-1,0,0]; [0,0,-1,0]; [0,0,0,-1]];
 
     valueMatrix = zeros(9,9,9,9);
-    decisionMatrix = zeros(9,9,9,9);
 
     for t = T:-1:1
         [allStates, numStates] = enumStates(t,arms);
@@ -50,5 +49,6 @@ function [valueMatrix, decisionMatrix, mu1, mu2] = optimalModel(T,arms,alpha,bet
            end  
         end
     end
+    [decisions,rewards] = getDecisionVector1(T,valueMatrix);
 end
 

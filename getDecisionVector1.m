@@ -1,4 +1,4 @@
-function [decisions, rewards] = getDecisionVector1(T,valueMatrix,decisionMatrix)
+function [decisions, rewards] = getDecisionVector1(T,valueMatrix)
     decisions = zeros(1,T);
     prevState = [0,0,0,0];
     nextStateVector = eye(4);
