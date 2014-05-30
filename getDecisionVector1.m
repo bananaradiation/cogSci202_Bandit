@@ -1,8 +1,8 @@
-function [decisions,rewards] = getDecisionVector1(T,valueMatrix,decisionMatrix)
-    decisions = zeros(T,1);    
-    rewards = zeros(T,1);
+function [decisions, rewards] = getDecisionVector1(T,valueMatrix,decisionMatrix)
+    decisions = zeros(1,T);
     prevState = [0,0,0,0];
     nextStateVector = eye(4);
+    maxNewState = prevState;
     for i=1:T
         maxValue = -9999;
         decisions(i) = 0;
@@ -22,6 +22,7 @@ function [decisions,rewards] = getDecisionVector1(T,valueMatrix,decisionMatrix)
                idxF2 = vector(:,4);
                if(valueMatrix(idxS1,idxS2,idxF1,idxF2) > maxValue)
                    maxValue = valueMatrix(idxS1,idxS2,idxF1,idxF2);
+                   maxNewState = [s1 s2 f1 f2];
                    if(j==1 || j==3)
                        decisions(i) = 1;
                    else
@@ -34,5 +35,6 @@ function [decisions,rewards] = getDecisionVector1(T,valueMatrix,decisionMatrix)
                    end
                end
         end
+        prevState = maxNewState;
     end
 end

@@ -1,4 +1,4 @@
-function [valueMatrix decisionMatrix] = optimalModel(T,arms,alpha,beta)
+function [valueMatrix, decisionMatrix, mu1, mu2] = optimalModel(T,arms,alpha,beta)
 
     mu1 = betarnd(alpha,beta);
     mu2 = betarnd(alpha,beta);
@@ -29,9 +29,22 @@ function [valueMatrix decisionMatrix] = optimalModel(T,arms,alpha,beta)
                
                totalArm1 = s1+f1+alpha+beta;
                totalArm2 = s2+f2+alpha+beta;
-               arm1Value = ((s1+alpha)/(totalArm1)) * valueMatrix(s1+1,idxS2,idxF1,idxF2) + ((f1+beta)/(totalArm1)) * valueMatrix(idxS1,idxS2,f1+1,idxF2) + mu1;
+               %sample Reward From Mu
+               arm1Reward = binornd(1, mu1);
+               arm2Reward = binornd(1, mu2);
+               arm1CurrentReward = 0;
+               arm2CurrentReward = 0 ;
+               if(arm1Reward == 1)
+                   arm1CurrentReward = (s1+alpha)/(totalArm1);
+               end
+               if(arm2Reward == 1)
+                   arm2CurrentReward = (s2+alpha)/(totalArm2);
+               end
                
-               arm2Value = ((s2+alpha)/(totalArm2)) * valueMatrix(idxS1,s2+1,idxF1,idxF2) + ((f2+beta)/(totalArm2)) * valueMatrix(idxS1,idxS2,idxF1,f2+1) + mu2;
+                   
+               arm1Value = ((s1+alpha)/(totalArm1)) * valueMatrix(s1+1,idxS2,idxF1,idxF2) + ((f1+beta)/(totalArm1)) * valueMatrix(idxS1,idxS2,f1+1,idxF2) + arm1CurrentReward;
+               
+               arm2Value = ((s2+alpha)/(totalArm2)) * valueMatrix(idxS1,s2+1,idxF1,idxF2) + ((f2+beta)/(totalArm2)) * valueMatrix(idxS1,idxS2,idxF1,f2+1) + arm2CurrentReward;
                
                [valueMatrix(idxS1,idxS2,idxF1,idxF2), decisionMatrix(idxS1,idxS2,idxF1,idxF2)] = max([arm1Value,arm2Value]); 
            end  
