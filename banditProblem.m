@@ -43,7 +43,7 @@ function [percentMatch] = banditProblem(alphaVec, betaVec, arms, trials, numGame
             
         end
 
-        percentMatch=percentMatch./numGames;
+        percentMatch(env,:)=percentMatch(env,:)./numGames;
     end
     
     % plot 
