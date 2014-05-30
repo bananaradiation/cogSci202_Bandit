@@ -41,6 +41,6 @@ function [decisionVector] = simulateFullLatentModel(numTrials,armDistributions)
         reward = binornd(1,armDistributions(d));
         s(d) = s(d) + reward;
         f(d) = f(d) + 1 - reward;        
-        fprintf('State: %d, decision: %d, reward = %d\n',state, decisionVector(i), reward);
+        % fprintf('State: %d, decision: %d, reward = %d\n',state, decisionVector(i), reward);
     end    
 end
