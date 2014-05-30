@@ -8,7 +8,7 @@ function [percentMatch] = banditProblem(alphaVec, betaVec, arms, trials, numGame
     tau = [5.1, 4.1, 2];
     gamma = [.87, .85, .72];
     
-    numEnv = size(alphaVec,1);
+    numEnv = size(alphaVec,2);
     percentMatch = zeros(numEnv, numModels);
     decisionHeuristic = zeros(trials,1);
     for env = 1:numEnv
@@ -20,7 +20,7 @@ function [percentMatch] = banditProblem(alphaVec, betaVec, arms, trials, numGame
                 
                 if model == 1                
                     % model 1 eps-greedy
-                    decisionHeuristic(:,model,env) = simulateEpsilonGreedy(trials, [mu1; mu2], epsilonGdy(env));
+                    decisionHeuristic = simulateEpsilonGreedy(trials, [mu1; mu2], epsilonGdy(env));
                 end
                 if model == 2
                     % model 2 eps-decreasing
@@ -39,10 +39,6 @@ function [percentMatch] = banditProblem(alphaVec, betaVec, arms, trials, numGame
                     % decisionHeuristic = simulateWinStayLoseShift(trials, [mu1; mu2], gamma(env));
                 end
                 percentMatch(env, model) = percentMatch(env, model) + compareDecisions(decisionOpt, decisionHeuristic)
-                env
-                model
-                
-            
             end
             
         end
