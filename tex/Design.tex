@@ -1,3 +1,55 @@
 \section{Design}
 \label{design}
 
+
+\subsection{Environments}
+
+\subsection{Generation of Optimal data}
+\subsubsection{Formulation of MDP}
+\todo[inline] {states definition, recursive formulation, decision rule}
+
+\subsubsection{Algorithm}
+
+
+
+\subsection{Inference of Parameters for Heuristics}
+For inferring parameters for different heuristic methods, we use the optimal data and do a grid search. 
+
+\subsubsection{$\epsilon$-greedy}
+
+\subsubsection{$\epsilon$-decreasing}
+
+\subsubsection{Win Stay Loose Shift}
+
+\subsubsection{$\tau$-Switch}
+
+
+\subsubsection{Common Algorithm Input : (alpha, beta, decisions, rewards), output: (parameter value)}
+\label{appendixAlgo}
+\begin{algorithm}[H]
+\caption{LDA Generative process with collapsed Gibbs Sampling }
+\label{generativeLDA_algorithm}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{algorithmic}[1]
+		\REQUIRE words $\bm{w} \in $ documents $\bm{d} \in [1,D]$
+%		\BEGIN \\
+			\STATE randomly initialize $\bm{z}$ and increment counters
+		\FOR {iteration $i \in [1,epoch]$}
+			\FOR { document $d \in [1,D]$}
+				\FOR {word $\in [1, N_{d}] $}
+					\STATE $topic \leftarrow z[word]$
+					\STATE decrement counters according to document $d$, $topic$ and $word$
+					\FOR {$k \in [1,K]$}
+						\STATE calculate $p(z=k|.) $ using Gibbs equation
+					\ENDFOR
+					\STATE $newTopic \leftarrow $ sample from $p(z|.)$
+					\STATE $z[word] \leftarrow newTopic$
+					\STATE decrement counters according to document $d$, $newTopic$ and $word$
+				\ENDFOR
+			\ENDFOR
+		\ENDFOR
+%		\END \\	
+\end{algorithmic}
+\end{algorithm}
+	
