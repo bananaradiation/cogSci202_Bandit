@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+
+\bibitem{elkan2006clustering}
+Charles Elkan.
+\newblock Clustering documents with an exponential-family approximation of the
+  dirichlet compound multinomial distribution.
+\newblock In {\em Proceedings of the 23rd international conference on Machine
+  learning}, pages 289--296. ACM, 2006.
+
+\bibitem{davidBlei_LDA}
+David~M. Blei, Andrew~Y. Ng, and Michael~I. Jordan.
+\newblock Latent dirichlet allocation.
+\newblock {\em Journal of Machine Learning Research}, 3:993--1022, 2003.
+
+\bibitem{PCA_tutorial}
+Lindsay~I Smith.
+\newblock A tutorial on principal components analysis.
+\newblock {\em Cornell University, USA}, 51:52, 2002.
+
+\bibitem{heinrich_VI}
+Gregor Heinrich, J{\"o}rg Kindermann, Codrina Lauth, Gerhard Paa{\ss}, and
+  Javier Sanchez-Monzon.
+\newblock Investigating word correlation at different scopes—a latent concept
+  approach.
+\newblock In {\em Workshop Lexical Ontology Learning at Int. Conf. Mach.
+  Learning}, 2005.
+
+\bibitem{meilua2007comparing}
+Marina Meil{\u{a}}.
+\newblock Comparing clusterings—an information based distance.
+\newblock {\em Journal of Multivariate Analysis}, 98(5):873--895, 2007.
+
+\bibitem{heinrich_estimation}
+Gregor Heinrich.
+\newblock Parameter estimation for text analysis.
+\newblock Technical report, 2004.
+
+\end{thebibliography}

@@ -20,11 +20,11 @@ function [L] = L_EpsilonGreedy(data_A, data_R, alpha, beta, epsilon, T, n)
 % The L will be a matrix n by 50, n is the subject, 50 is the 50 games
 
 L = zeros(n,50);
-
+n
 for i = 1:n;
 
-  seq_A = squeeze(data_A(i,:,:));
-  seq_R = squeeze(data_R(i,:,:));
+  seq_A = squeeze(data_A(i,:,:))'
+  seq_R = squeeze(data_R(i,:,:))'
 
   for games = 1:size(seq_A,1);
    
@@ -38,7 +38,7 @@ for i = 1:n;
     f_2 = 0;
     LL = 1;
 
-  if seq_A(games,1) == 0;
+  if seq_A(games,1) == 1
 
   LL = (mu_1^(seq_R(games,1)))*((1-mu_1)^(1-seq_R(games,1)));
   s_1 = s_1 + 1*seq_R(games,1);
@@ -55,7 +55,7 @@ for i = 1:n;
   mu_1 = (alpha(1) + s_1)/(1 + alpha(1) + beta(1));
   mu_2 = (alpha(2) + s_2)/(1 + alpha(2) + beta(2));
 
-  for trial = 2:T;
+  for trial = 2:T
 
   % Four components for the likelihood function of each trial 
   % List out the rules
@@ -63,7 +63,7 @@ for i = 1:n;
      stay = abs(seq_A(games, trial - 1) - seq_A(games, trial));
      a = (epsilon^(1-stay))*((1-epsilon)^stay); 
  
-     if seq_A(games,trial) == 0;
+     if seq_A(games,trial) == 0
 
      r = (mu_1^(seq_R(games,trial)))*((1-mu_1)^(1-seq_R(games,trial)));
      s_1 = s_1 + 1*seq_R(games,trial);

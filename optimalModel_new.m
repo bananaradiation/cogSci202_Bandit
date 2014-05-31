@@ -1,4 +1,4 @@
-function [decisions,rewards, mu1, mu2, decisionMatrix] = optimalModel_new(T,arms,alpha,beta)
+function [decisions,rewards, mu1, mu2] = optimalModel_new(T,arms,alpha,beta)
 
     mu1 = betarnd(alpha,beta);
     mu2 = betarnd(alpha,beta);
@@ -25,7 +25,7 @@ function [decisions,rewards, mu1, mu2, decisionMatrix] = optimalModel_new(T,arms
     for t = T:-1:2
         [allStates, numStates] = enumStates(t,arms);
         for i=1:numStates
-            fprintf('At state : %d,%d,%d,%d',allStates(i,1),allStates(i,2),allStates(i,3),allStates(i,4));
+%             fprintf('At state : %d,%d,%d,%d',allStates(i,1),allStates(i,2),allStates(i,3),allStates(i,4));
             %allStates(i)
             for j=1:4
                if allStates(i,j) == 0
@@ -67,10 +67,11 @@ function [decisions,rewards, mu1, mu2, decisionMatrix] = optimalModel_new(T,arms
                [valueMatrix(idxS1,idxS2,idxF1,idxF2), decisionMatrix(idxS1,idxS2,idxF1,idxF2)] = max([arm1Value,arm2Value]); 
                %max([arm1Value,arm2Value])
                
-               fprintf('Setting value function of state : %d,%d,%d,%d to value = %f\n',idxS1,idxS2,idxF1,idxF2, valueMatrix(idxS1,idxS2,idxF1,idxF2));
+%                fprintf('Setting value function of state : %d,%d,%d,%d to value = %f\n',idxS1,idxS2,idxF1,idxF2, valueMatrix(idxS1,idxS2,idxF1,idxF2));
                
             end  
         end
     end
-    [decisions,rewards] = getDecisionVector1(T,valueMatrix);
+%     [decisions,rewards] = getDecisionVector1(T,valueMatrix);
+    [decisions, rewards] = getDecisionVectorFromDecisionMatrix(decisionMatrix, T, [mu1,mu2]);
 end

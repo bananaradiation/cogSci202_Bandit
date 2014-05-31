@@ -1,0 +1,67 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips13submit_e,times}
+\usepackage{hyperref}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{mwe}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{epstopdf}
+\usepackage{bm}
+%\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\nipsfinalcopy % Uncomment for camera-ready version
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\title{Topic Modeling using Latent Dirichlet Allocation}
+\author{Hannah Chen \\
+  \texttt{hechen@eng.ucsd.edu} \and \textbf{Sonali Rahagude}\\
+  \texttt{srahagud@ucsd.edu} \and \textbf{Sneha Venkatesh Yelimeli}\\
+  \texttt{svyelime@eng.ucsd.edu} \and \textbf{Chun Fan}\\
+  \texttt{c9fan@ucsd.edu} \and \textbf{Yashodhan Karandikar}\\
+  \texttt{ykarandi@eng.ucsd.edu}}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+%\todo[inline]{ADD ABSTRACT}
+\end{abstract}
+
+\input{introduction}
+
+\input{background}
+\input{Design}
+%\input{Implementation}
+
+\input{ResultsAndAnalysis}
+\input{Conclusion}
+\input{appendix}
+\bibliography{bib}{}
+\bibliographystyle{unsrt}
+
+
+\end{document}

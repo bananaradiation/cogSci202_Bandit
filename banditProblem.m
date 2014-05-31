@@ -13,7 +13,7 @@ function [percentMatch] = banditProblem(alphaVec, betaVec, arms, trials, numGame
     decisionHeuristic = zeros(trials,1);
     for env = 1:numEnv
         for game = 1:numGames
-            [decisionOpt, rewards, mu1, mu2] = optimalModel(trials,arms,alphaVec(env),betaVec(env));
+            [decisionOpt, rewards, mu1, mu2] = optimalModel_new(trials,arms,alphaVec(env),betaVec(env));
             for model = 1:numModels
                 
                 % infer via grid search or select param values from paper
@@ -38,7 +38,7 @@ function [percentMatch] = banditProblem(alphaVec, betaVec, arms, trials, numGame
                     % model 5 win-stay-lose-shift
                     % decisionHeuristic = simulateWinStayLoseShift(trials, [mu1; mu2], gamma(env));
                 end
-                percentMatch(env, model) = percentMatch(env, model) + compareDecisions(decisionOpt, decisionHeuristic)
+                percentMatch(env, model) = percentMatch(env, model) + compareDecisions(decisionOpt, decisionHeuristic);
             end
             
         end
