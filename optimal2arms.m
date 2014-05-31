@@ -4,7 +4,7 @@
 % Initial setting
 %%%%%%%%%%%%%%%%%
 
-a0=1;b0=1; % parameters of the beta dist'n a priori
+a0=2;b0=8; % parameters of the beta dist'n a priori
 
 % number of possible states after 14th trial, 13th trial, ... 1st trial 
 % (decision * outcome)
@@ -47,8 +47,12 @@ p(2)=(a0+s2)/(a0+b0+s2+f2);
 % all possible states will be lined up a row, along with a row of indices 
 % of corresponding states [s1, f1, s2, f2, s3, f3, s4, f4]
 
+<<<<<<< Updated upstream
 ind(ii,t)=f1+s2*(t+1)+s1*(t+1)^2;
 % count by t+1 (to avoid over-writing indices)
+=======
+ind(ii,t)=f1+s2*(t+1)+s1*(t+1)^2; % count by t+1 (to avoid over-writing indices)
+>>>>>>> Stashed changes
 
 u=s+p;  % expected number of points earned from each arm                        
 U(ii,t)=max(u); % best value
@@ -78,12 +82,15 @@ ind(ii,t)=f1+s2*(t+1)+s1*(t+1)^2;
 
 % j1s: index for next state, if choosing arm 1 and getting a success 
 % j1f: index for next state, if choosing arm 1 and getting a failure 
-j1s=f1+s2*(t+2)+s1*(t+2)^2;
-j1f=f1+s2*(t+2)+(s1+1)*(t+2)^2;
-j2s=f1+s2*(t+2)+s1*(t+2)^2;
+j1s=f1+s2*(t+2)+(s1+1)*(t+2)^2;
+j1f=(f1+1)+s2*(t+2)+s1*(t+2)^2;
+j2s=f1+(s2+1)*(t+2)+s1*(t+2)^2;
 j2f=f1+(s2+1)*(t+2)+s1*(t+2)^2;
 
+
 % expected values, considering possible outcomes for each arm
+UU(in==j1s)
+UU(in==j1f)
 u(1)=p(1)*UU(in==j1s)+(1-p(1))*UU(in==j1f);  
 u(2)=p(2)*UU(in==j2s)+(1-p(2))*UU(in==j2f); 
 U(ii,t)=max(u);

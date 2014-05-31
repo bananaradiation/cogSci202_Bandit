@@ -1,0 +1,19 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Motivation}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{Background}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Related Work}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Design}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Environments}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Generation of Optimal data}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Formulation of MDP}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Algorithm}{subsection.3.2}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Inference of Parameters for Heuristics}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.1}{-greedy}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.2}{-decreasing}{subsection.3.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Win Stay Loose Shift}{subsection.3.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.4}{-Switch}{subsection.3.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.3.5}{Common Algorithm Input : \(alpha, beta, decisions, rewards\), output: \(parameter value\)}{subsection.3.3}% 15
+\BOOKMARK [1][-]{section.4}{Results}{}% 16
+\BOOKMARK [1][-]{section.5}{Optimal data}{}% 17
+\BOOKMARK [1][-]{section.6}{Conclusions}{}% 18
+\BOOKMARK [1][-]{appendix.A}{Appendix}{}% 19
