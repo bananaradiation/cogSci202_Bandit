@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: report.aux
+The style file: unsrt.bst
+Database file #1: bib.bib
+Warning--empty institution in heinrich_estimation
+You've used 6 entries,
+            1791 wiz_defined-function locations,
+            486 strings with 4506 characters,
+and the built_in function-call counts, 1342 in all, are:
+= -- 122
+> -- 44
+< -- 1
++ -- 18
+- -- 12
+* -- 79
+:= -- 214
+add.period$ -- 19
+call.type$ -- 6
+change.case$ -- 7
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 66
+empty$ -- 142
+format.name$ -- 12
+if$ -- 304
+int.to.chr$ -- 0
+int.to.str$ -- 6
+missing$ -- 5
+newline$ -- 33
+num.names$ -- 6
+pop$ -- 19
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 27
+stack$ -- 0
+substring$ -- 87
+swap$ -- 16
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 13
+width$ -- 7
+write$ -- 67
+(There was 1 warning)
