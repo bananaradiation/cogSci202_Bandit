@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.30)  31 MAY 2014 14:41
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.30)  31 MAY 2014 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -794,71 +794,35 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
 ine 4.
 ) (./background.tex) (./Design.tex
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 18.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\epsilon' on input line 18.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 18.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 20.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\epsilon' on input line 20.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 20.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 24.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\tau' on input line 24.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 24.
-
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 30.
 
-Underfull \vbox (badness 8019) has occurred while \output is active []
+Underfull \vbox (badness 7362) has occurred while \output is active []
 
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./ResultsAndAnalysis.tex
 )
-(./Conclusion.tex) (./appendix.tex) (./report.bbl
+(./Conclusion.tex) (./appendix.tex) (./report.bbl [2]
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 ))
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
- [2]
+ [3]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 67.
 
 (./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: CE99ADF980432AA95CCE9ADB8E34C123;1239.
+(rerunfilecheck)             Checksum: 000D4CC2DAEAF3EF4BE8E9C8573B9723;1538.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 17588 strings out of 493304
- 305680 string characters out of 6139871
- 486590 words of memory out of 5000000
- 20620 multiletter control sequences out of 15000+600000
+ 17599 strings out of 493304
+ 305840 string characters out of 6139871
+ 486633 words of memory out of 5000000
+ 20625 multiletter control sequences out of 15000+600000
  18663 words of font info for 42 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,8n,80p,425b,936s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -871,10 +835,10 @@ public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/co
 urier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (2 pages, 103704 bytes).
+Output written on report.pdf (3 pages, 104409 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 192 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 189 words of extra memory for PDF output out of 10000 (max. 10000000)
 
