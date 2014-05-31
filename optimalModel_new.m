@@ -1,5 +1,6 @@
 function [decisions,rewards, mu1, mu2] = optimalModel_new(T,arms,alpha,beta)
 
+    % draw mu's
     mu1 = betarnd(alpha,beta);
     mu2 = betarnd(alpha,beta);
     deductionVector = [ [-1,0,0,0]; [0,-1,0,0]; [0,0,-1,0]; [0,0,0,-1]];
@@ -53,10 +54,10 @@ function [decisions,rewards, mu1, mu2] = optimalModel_new(T,arms,alpha,beta)
                arm2CurrentReward = 0 ;
 
                %if(arm1Reward == 1)
-               %    arm1CurrentReward = (s1+alpha)/(totalArm1);
+               %arm1CurrentReward = (s1+alpha)/(totalArm1);
                %end
                %if(arm2Reward == 1)
-               %    arm2CurrentReward = (s2+alpha)/(totalArm2);
+               %arm2CurrentReward = (s2+alpha)/(totalArm2);
                %end
 
 
@@ -64,7 +65,11 @@ function [decisions,rewards, mu1, mu2] = optimalModel_new(T,arms,alpha,beta)
 
                arm2Value = ((s2+alpha)/(totalArm2)) * valueMatrix(idxS1,s2+1,idxF1,idxF2) + ((f2+beta)/(totalArm2)) * valueMatrix(idxS1,idxS2,idxF1,f2+1) + arm2CurrentReward;
 
+               oldValue = valueMatrix(idxS1,idxS2,idxF1,idxF2);
                [valueMatrix(idxS1,idxS2,idxF1,idxF2), decisionMatrix(idxS1,idxS2,idxF1,idxF2)] = max([arm1Value,arm2Value]); 
+               if (valueMatrix(idxS1,idxS2,idxF1,idxF2) ~= oldValue && oldValue ~= 0)
+                   error('ERROR : Value overwritten !!!');
+               end
                %max([arm1Value,arm2Value])
                
 %                fprintf('Setting value function of state : %d,%d,%d,%d to value = %f\n',idxS1,idxS2,idxF1,idxF2, valueMatrix(idxS1,idxS2,idxF1,idxF2));
@@ -73,5 +78,5 @@ function [decisions,rewards, mu1, mu2] = optimalModel_new(T,arms,alpha,beta)
         end
     end
 %     [decisions,rewards] = getDecisionVector1(T,valueMatrix);
-    [decisions, rewards] = getDecisionVectorFromDecisionMatrix(decisionMatrix, T, [mu1,mu2]);
+    [decisions, rewards] = getDecisionVectorFromDecisionMatrix(decisionMatrix, T, [mu1,mu2]');
 end
