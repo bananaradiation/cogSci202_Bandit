@@ -47,8 +47,8 @@ p(2)=(a0+s2)/(a0+b0+s2+f2);
 % all possible states will be lined up a row, along with a row of indices 
 % of corresponding states [s1, f1, s2, f2, s3, f3, s4, f4]
 
-% ind(ii,t)=f3+f2*(t+1)+f1*(t+1)^2+s4*(t+1)^3+...
-%     s3*(t+1)^4+s2*(t+1)^5+s1*(t+1)^6; % count by t+1 (to avoid over-writing indices)
+ind(ii,t)=f1+s2*(t+1)+s1*(t+1)^2;
+% count by t+1 (to avoid over-writing indices)
 
 u=s+p;  % expected number of points earned from each arm                        
 U(ii,t)=max(u); % best value
@@ -68,13 +68,13 @@ for it=1:7;
     for s1=0:t;
         tic;
         for s2=0:t-s1;
-            s=s1+s2+s3+s4;
+            s=s1+s2;
             for f1=0:t-s;
 ii=ii+1;
 f2=t-s-f1;                                       
 p(1)=(a0+s1)/(a0+b0+s1+f1);
 p(2)=(a0+s2)/(a0+b0+s2+f2);
-ind(ii,t)=f1+s2*(t+1)+s1*(t+1)^2
+ind(ii,t)=f1+s2*(t+1)+s1*(t+1)^2;
 
 % j1s: index for next state, if choosing arm 1 and getting a success 
 % j1f: index for next state, if choosing arm 1 and getting a failure 
