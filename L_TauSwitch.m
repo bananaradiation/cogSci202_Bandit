@@ -35,7 +35,7 @@ function [L] = L_EpsilonGreedy(data_A, data_R, alpha, beta, tau, T, n)
     LL = 1;
 
     if seq_A(games,1) == 0;
-      arm = seq_A(games,1)+1;
+      arm = a_vec(games,1)+1;
       LL = (mu(arm)^(seq_R(games,1)))*((1-mu(arm))^(1-seq_R(games,1)));
       s(arm) = s(arm) + 1*seq_R(games,1);
       f(arm) = f(arm) + 1*(abs(1-seq_R(games,1)));
@@ -82,17 +82,26 @@ function [L] = L_EpsilonGreedy(data_A, data_R, alpha, beta, tau, T, n)
       % Two components for the likelihood function of each trial 
       % value for a comes from action and depends on key model parameter
       % value for r comes from rewards and depends on mu
-      a = (theta^(1-z))*((1-theta)^z); 
-   
-      if seq_A(games,1) == 0;
-        arm = seq_A(games,1)+1;
-        LL = (mu(arm)^(seq_R(games,1)))*((1-mu(arm))^(1-seq_R(games,1)));
-        s(arm) = s(arm) + 1*seq_R(games,1);
-        f(arm) = f(arm) + 1*(abs(1-seq_R(games,1)));
-      end
       
-      LL = LL*a*r; 
-      mu = (alpha + s)/(1 + alpha + beta);
+     a = (theta^(1-avec(trial)))*((1-theta)^(avec)); 
+   
+     
+     if seq_A(games,trial) == 0;
+
+     r = (mu_1^(seq_R(games,trial)))*((1-mu_1)^(1-seq_R(games,trial)));
+     s_1 = s_1 + 1*seq_R(games,trial);
+     f_1 = f_1 + 1*(abs(1-seq_R(games,trial)));
+
+     else
+
+     r = (mu_2^(seq_R(games,trial)))*((1-mu_2)^(1-seq_R(games,trial)));
+     s_2 = s_2 + 1*seq_R(games,trial);
+     f_2 = f_2 + 1*(abs(1-seq_R(games,trial)));
+     end;
+
+
+     LL = LL*a*r; 
+     mu = (alpha + s)/(1 + alpha + beta);
 
     end
 

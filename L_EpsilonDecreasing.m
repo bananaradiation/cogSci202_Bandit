@@ -1,6 +1,8 @@
-function [L] = L_EpsilonDecreasing(data_A, data_R, alpha, beta, epsilon0, T, n)
+function [L] = L_EpsilonDecreasing(a_vec, data_A, data_R, alpha, beta, epsilon0, T, n)
 
 % 
+% the a_vec is the possible heuristic actions with length T
+%
 % data is the data matrix from the mat, which is 10 by 50 by 8 or 16
 %
 % data_A is the action data and data_R is the reward data
@@ -63,7 +65,7 @@ for i = 1:n;
   % Four components for the likelihood function of each trial 
   % List out the rules
 
-     stay = abs(seq_A(games, trial - 1) - seq_A(games, trial));
+     stay = abs(a_vec(trial - 1) - a_vec(trial));
      a = (epsilon^(1-stay))*((1-epsilon)^stay); 
  
      if seq_A(games,trial) == 0;

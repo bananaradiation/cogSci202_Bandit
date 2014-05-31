@@ -1,6 +1,8 @@
-function [L] = L_WinStayLooseShift(data_A, data_R, alpha, beta, gamma, T, n)
+function [L] = L_WinStayLooseShift(a_vec, data_A, data_R, alpha, beta, gamma, T, n)
 
 % 
+% a_vec is the possible action vector with length T
+%
 % data is the data matrix from the mat, which is 10 by 50 by 8 or 16
 %
 % data_A is the action data and data_R is the reward data
@@ -64,11 +66,11 @@ for i = 1:n;
     
      if stay == 1;
 
-     a = (gamma^(seq_R(games,trial - 1)))*((1-gamma)^(1 - seq_R(games,trial - 1)));
+     a = (gamma^(a_vec(trial - 1)))*((1-gamma)^(1 - a_vec(trial - 1)));
 
      else;
 
-     a = ((1-gamma)^(seq_R(games,trial - 1)))*(gamma^(1 - seq_R(games,trial - 1)));
+     a = ((1-gamma)^(a_vec(trial - 1)))*(gamma^(1 - a_vec(trial - 1)));
 
      end; 
 
