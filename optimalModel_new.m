@@ -1,4 +1,4 @@
-function [decisions,rewards, mu1, mu2] = optimalModel_new(T,arms,alpha,beta)
+function [decisions,rewards, mu1, mu2, decisionMatrix] = optimalModel_new(T,arms,alpha,beta)
 
     mu1 = betarnd(alpha,beta);
     mu2 = betarnd(alpha,beta);
