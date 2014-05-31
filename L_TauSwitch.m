@@ -1,4 +1,4 @@
-function [L] = L_EpsilonGreedy(data_A, data_R, alpha, beta, tau, T, n)
+function [L] = L_EpsilonGreedy(a_vec, data_A, data_R, alpha, beta, tau, T, n)
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % data is the data matrix from the mat, which is 10 by 50 by (8 or 16)
@@ -35,24 +35,26 @@ function [L] = L_EpsilonGreedy(data_A, data_R, alpha, beta, tau, T, n)
     LL = 1;
 
     if seq_A(games,1) == 0;
-      arm = a_vec(games,1)+1;
+      arm = seq_A(games,1)+1;
       LL = (mu(arm)^(seq_R(games,1)))*((1-mu(arm))^(1-seq_R(games,1)));
       s(arm) = s(arm) + 1*seq_R(games,1);
       f(arm) = f(arm) + 1*(abs(1-seq_R(games,1)));
     end
 
-    mu = (alpha + s)/(1 + alpha + beta;
+    mu = (alpha + s)/(1 + alpha + beta);
 
     for trial = 2:T;
       % compare human decision with previous state..?
       % use in full latent model..
       % z = (seq_A(games, trial - 1) == seq_A(games, trial));
+      
+      gamma = rand();
 
       % determine state and situation based on s_1,s_2,f_1,f_2 from 
       % explore state for z = 0, exploit state for z = 1
       z = (i < tau);
 
-      if (s(1) == s(2) && f(1) == f(2) 
+      if (s(1) == s(2) && f(1) == f(2)) 
         % Same situation   
         theta = 0.5;
       elseif (s(1) >= s(2) && f(1) <= f(2))
@@ -83,23 +85,15 @@ function [L] = L_EpsilonGreedy(data_A, data_R, alpha, beta, tau, T, n)
       % value for a comes from action and depends on key model parameter
       % value for r comes from rewards and depends on mu
       
-     a = (theta^(1-avec(trial)))*((1-theta)^(avec)); 
+     a = (theta^(1-a_vec(trial)))*((1-theta)^(a_vec(trial))); 
    
+    if seq_A(games,trial) == 0;
+      arm = a_vec(trial)+1;
+      r = (mu(arm)^(seq_R(games,trial)))*((1-mu(arm))^(1-seq_R(games,trial)));
+      s(arm) = s(arm) + 1*seq_R(games,trial);
+      f(arm) = f(arm) + 1*(abs(1-seq_R(games,trial)));
+    end 
      
-     if seq_A(games,trial) == 0;
-
-     r = (mu_1^(seq_R(games,trial)))*((1-mu_1)^(1-seq_R(games,trial)));
-     s_1 = s_1 + 1*seq_R(games,trial);
-     f_1 = f_1 + 1*(abs(1-seq_R(games,trial)));
-
-     else
-
-     r = (mu_2^(seq_R(games,trial)))*((1-mu_2)^(1-seq_R(games,trial)));
-     s_2 = s_2 + 1*seq_R(games,trial);
-     f_2 = f_2 + 1*(abs(1-seq_R(games,trial)));
-     end;
-
-
      LL = LL*a*r; 
      mu = (alpha + s)/(1 + alpha + beta);
 
