@@ -3,10 +3,10 @@ The goals of our experimental setup are 3-fold: generate optimal data for the ba
 
 \section{Implementation}
 \subsection{Experiment Setup}
-Our dataset [\ref{data}] consists of 50 experiments on 3 environments: ‘plentiful’($\alpha=4,\beta=2$) , ‘neutral’($\alpha=1,\beta=1$) and ‘scarce’($\alpha=2,\beta=4$). $\alpha$ and $\beta$ define the count of prior successes and failures, respectively. Each experiment consists of 8 trials and the reward rates $\mu_k$ for arm $k$ is drawn from the beta distribution, i.e. $\mu_k \sim Beta (\alpha, \beta)$. Thus, we draw a total of 100 reward rates in the setting. For the $i^{th}$ trial in the $t^{th}$ experiment, if arm $k$ is chosen, the reward $R_i^t$ is determined by the outcome of a Bernoulli using the reward rate $\mu_k^t$, so $R_i^t \sim Bernoulli (\mu_k^t)$.
+Our dataset \cite{data} consists of 50 experiments on 3 environments: ‘plentiful’($\alpha=4,\beta=2$) , ‘neutral’($\alpha=1,\beta=1$) and ‘scarce’($\alpha=2,\beta=4$). $\alpha$ and $\beta$ define the count of prior successes and failures, respectively. Each experiment consists of 8 trials and the reward rates $\mu_k$ for arm $k$ is drawn from the beta distribution, i.e. $\mu_k \sim Beta (\alpha, \beta)$. Thus, we draw a total of 100 reward rates in the setting. For the $i^{th}$ trial in the $t^{th}$ experiment, if arm $k$ is chosen, the reward $R_i^t$ is determined by the outcome of a Bernoulli using the reward rate $\mu_k^t$, so $R_i^t \sim Bernoulli (\mu_k^t)$.
 
 \subsection{Optimal Model}
-For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [\ref{kaelbling},\ref{steyvers}]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
+For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach \cite{kaelbling},\cite{steyvers}. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
 
 \begin{align*}
 	V_t(s_1,s_2,f_1,f_2) &= \max_{i \in \{1,2\}} 
@@ -23,7 +23,7 @@ The state value function for the last trial $V_T=\frac{s_i + \alpha}{s_i + f_i +
 To obtain a set of decisions for each trial, we sample the reward rate $\mu_i$ for each arm $i$ from the known Beta distribution of that environment. The optimal decision $i$ for each trial combined with the reward sampled from the Bernoulli distribution given by $\mu_i$ gives us the next state.
 
 \subsection{Heuristic Models}
-We implement the five heuristics used in \ref{shunan2011} and summarize the key parameters and their meanings in the following table: 
+We implement the five heuristics used in \cite{shunan2011} and summarize the key parameters and their meanings in the following table: 
 
 \begin{table}[h]
 \begin{tabular}{|l|c|l|}
@@ -32,7 +32,7 @@ We implement the five heuristics used in \ref{shunan2011} and summarize the key 
 $\epsilon$-greedy & $\epsilon$ & probability of exploration \\ \hline
 $\epsilon$-decreasing & $\epsilon_0$ & probability of exploration in 0-th trial \\ \hline
 WSLS & $\gamma$ & probability of staying after winning and shifting after losing \\ \hline
-Full latent state & $\theta$ & multifaceted, see [\ref{shunan2009}] \\ \hline
+Full latent state & $\theta$ & multifaceted, see \cite{shunan2009} \\ \hline
 $\tau$-switch & $\tau$ & trial \# for switching from exploration to exploitation \\ \hline
 \end{tabular}
 \end{table}
