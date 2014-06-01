@@ -22,7 +22,7 @@ function [L] = L_EpsilonGreedy(a_vec, data_A, data_R, alpha, beta, epsilon, T, n
 % The L will be a matrix n by 50, n is the subject, 50 is the 50 games
 
 L = zeros(n,50);
-n
+
 for i = 1:n;
 
   seq_A = squeeze(data_A(i,:,:));
@@ -62,8 +62,8 @@ for i = 1:n;
   % Four components for the likelihood function of each trial 
   % List out the rules
 
-     stay = abs(a_vec(trial - 1) - a_vec(trial));
-     a = (epsilon^(1-stay))*((1-epsilon)^stay); 
+     stay = 1 - abs(seq_A(games,trial - 1) - a_vec(trial));
+     a = (epsilon^(stay))*((1-epsilon)^(1-stay)); 
  
      if seq_A(games,trial) == 0
 

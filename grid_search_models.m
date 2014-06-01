@@ -13,7 +13,8 @@ function [best_alpha_beta, best_seq] = grid_search_models(data_A, data_R, T, mod
 % 1 WinStayLooseShift
 %   params = gamma
 %
-% 2
+% 2 Epsilon_Greedy
+%   params = epsilon
 %
 % 3 
 %
@@ -69,7 +70,7 @@ for i = 1:4;
 
    case 4
    tau = params;
-   L(j,:,:) = L_EpsilonGreedy(a_vec, data_A, data_R, alpha(i), beta(i), tau, T, 10);
+   L(j,:,:) = L_TauSwitch(a_vec, data_A, data_R, alpha(i), beta(i), tau, T, 10);
 
    end   
 

@@ -33,13 +33,11 @@ function [L] = L_EpsilonGreedy(a_vec, data_A, data_R, alpha, beta, tau, T, n)
     s = zeros(2,1);
     f = zeros(2,1);
     LL = 1;
-
-    if seq_A(games,1) == 0;
-      arm = seq_A(games,1)+1;
-      LL = (mu(arm)^(seq_R(games,1)))*((1-mu(arm))^(1-seq_R(games,1)));
-      s(arm) = s(arm) + 1*seq_R(games,1);
-      f(arm) = f(arm) + 1*(abs(1-seq_R(games,1)));
-    end
+      
+    arm = seq_A(games,1)+1;
+    LL = (mu(arm)^(seq_R(games,1)))*((1-mu(arm))^(1-seq_R(games,1)));
+    s(arm) = s(arm) + 1*seq_R(games,1);
+    f(arm) = f(arm) + 1*(abs(1-seq_R(games,1)));
 
     mu = (alpha + s)/(1 + alpha + beta);
 
@@ -48,7 +46,7 @@ function [L] = L_EpsilonGreedy(a_vec, data_A, data_R, alpha, beta, tau, T, n)
       % use in full latent model..
       % z = (seq_A(games, trial - 1) == seq_A(games, trial));
       
-      gamma = rand();
+      gamma = 0.8;
 
       % determine state and situation based on s_1,s_2,f_1,f_2 from 
       % explore state for z = 0, exploit state for z = 1
@@ -84,12 +82,13 @@ function [L] = L_EpsilonGreedy(a_vec, data_A, data_R, alpha, beta, tau, T, n)
       % Two components for the likelihood function of each trial 
       % value for a comes from action and depends on key model parameter
       % value for r comes from rewards and depends on mu
-      
-     a = (theta^(1-a_vec(trial)))*((1-theta)^(a_vec(trial))); 
+     
+     a = (theta^(1 - a_vec(trial)))*((1-theta)^(a_vec(trial))); 
    
-    if seq_A(games,trial) == 0;
-      arm = a_vec(trial)+1;
+      arm = seq_A(games,trial)+1;
       r = (mu(arm)^(seq_R(games,trial)))*((1-mu(arm))^(1-seq_R(games,trial)));
+      
+    if seq_R(games,trial) == 1;
       s(arm) = s(arm) + 1*seq_R(games,trial);
       f(arm) = f(arm) + 1*(abs(1-seq_R(games,trial)));
     end 
