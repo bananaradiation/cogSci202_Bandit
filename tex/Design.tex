@@ -6,14 +6,16 @@ The environment has been defined by a Beta($\alpha,\beta$) distribution where $\
 
 \subsection{Generation of Optimal data}
 For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [\ref{steyvers}]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
-\begin{align*}
+
+\begin{align}
+\label{eq:recDef}
 	V_t(s_1,s_2,f_1,f_2) &= \max_{i \in \{1,2\}} 
 	\Big(
 	\frac{s_i + \alpha}{s_i + f_i + \alpha + \beta} V_{t+1}(...,s_i+1,...) \\
 	&+ \frac{f_i + \beta}{s_i + f_i + \alpha + \beta} V_{t+1}(...,f_i+1,...)\\
 	&+ \frac{s_i + \alpha}{s_i + f_i + \alpha + \beta} 
 	\Big)	
-\end{align*}
+\end{align}
 
 
 We know that the state value function for the last trial $V_T=\frac{s_i + \alpha}{s_i + f_i + \alpha + \beta}$. This completes the recursive definition. Using this definition, the value function is computed for all enumerable states from $T=8\ldots1$. To obtain the optimal decision, the argument that maximizes the state value function is selected, thus giving the best arm to be chosen for each possible state. 
