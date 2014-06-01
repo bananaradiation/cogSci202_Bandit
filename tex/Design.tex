@@ -23,6 +23,32 @@ In inferring from the optimal decision data, we assume that the optimal decision
 
 To infer parameters from the optimal data, we first run the model model describe above with set environment variable inputs $\{(4,2), (1,1), (2,4)\}$. This returns each arm's reward distribution sampled from a beta distribution and a sequence of decisions for every enumerable state. The best $\epsilon$ parameter is found by averaging the results of the grid search which uses decision sequence match percentage as the comparator to optimal. The averaged parameter value and $\mu$ values are then used to simulate the $\epsilon$-greedy heuristic to result in the heuristic's optimal decision sequence. Finally this heuristic decision sequence is compared to the optimal decision sequence again using match percentage for assessment.
 Algorithm below describes the entire process,
+\begin{algorithm}[H]
+\caption{LDA Generative process with collapsed Gibbs Sampling }
+\label{generativeLDA_algorithm}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{algorithmic}[1]
+		\REQUIRE words $\bm{w} \in $ documents $\bm{d} \in [1,D]$
+%		\BEGIN \\
+			\STATE randomly initialize $\bm{z}$ and increment counters
+		\FOR {iteration $i \in [1,epoch]$}
+			\FOR { document $d \in [1,D]$}
+				\FOR {word $\in [1, N_{d}] $}
+					\STATE $topic \leftarrow z[word]$
+					\STATE decrement counters according to document $d$, $topic$ and $word$
+					\FOR {$k \in [1,K]$}
+						\STATE calculate $p(z=k|.) $ using Gibbs equation
+					\ENDFOR
+					\STATE $newTopic \leftarrow $ sample from $p(z|.)$
+					\STATE $z[word] \leftarrow newTopic$
+					\STATE decrement counters according to document $d$, $newTopic$ and $word$
+				\ENDFOR
+			\ENDFOR
+		\ENDFOR
+%		\END \\	
+\end{algorithmic}
+\end{algorithm}
 
 \subsubsection{Inference from Human Data}
 We derive the following inference method based on three key factors: (1) there are a finite number of possible decision sequences; (2) the possible combinations of environment variables, $\alpha'$ and $\beta'$, are constrained; and (3) the assumption of conditional independence.
