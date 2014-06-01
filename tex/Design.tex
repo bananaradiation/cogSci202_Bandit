@@ -1,5 +1,4 @@
-\label{design}
-\section{Design}
+\section{Implementation}
 
 \subsection{Environments}
 The environment has been defined by a Beta($\alpha,\beta$) distribution where $\alpha$ and $\beta$ define the count of prior successes and failures, respectively. We used 3 different environmental conditions namely ‘plentiful’($\alpha=4,\beta=2$) , ‘neutral’($\alpha=1,\beta=1$) and ‘scarce’($\alpha=2,\beta=4$) to control the reward rates and observe the change in behavior of the models as well as human decisions.
@@ -7,21 +6,37 @@ The environment has been defined by a Beta($\alpha,\beta$) distribution where $\
 \subsection{Generation of Optimal data}
 For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [\ref{steyvers}]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
 
-\begin{align}
-\label{eq:recDef}
+\subsection{Optimal Model}
+For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [\ref{kaelbling},\ref{steyvers}]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
+
+\begin{align*}
 	V_t(s_1,s_2,f_1,f_2) &= \max_{i \in \{1,2\}} 
 	\Big(
 	\frac{s_i + \alpha}{s_i + f_i + \alpha + \beta} V_{t+1}(...,s_i+1,...) \\
 	&+ \frac{f_i + \beta}{s_i + f_i + \alpha + \beta} V_{t+1}(...,f_i+1,...)\\
 	&+ \frac{s_i + \alpha}{s_i + f_i + \alpha + \beta} 
 	\Big)	
-\end{align}
+\end{align*}
 
 
 We know that the state value function for the last trial $V_T=\frac{s_i + \alpha}{s_i + f_i + \alpha + \beta}$. This completes the recursive definition. Using this definition, the value function is computed for all enumerable states from $T=8\ldots1$. To obtain the optimal decision, the argument that maximizes the state value function is selected, thus giving the best arm to be chosen for each possible state. 
 
 To obtain a set of decisions for each trial, we sample the reward rate $\mu_i$ for each arm $i$ from the known Beta distribution of that environment. The optimal decision $i$ for each trial combined with the reward sampled from the Bernoulli distribution given by $\mu_i$ gives us the next state.
 
+\subsection{Heuristic Models}
+We implement the five heuristics used in \ref{shunan2009} and summarize the key parameters and their meanings in the following table: 
+
+\begin{table}[h]
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Heuristic} & \textbf{Key Parameter} & \textbf{Meaning} \\ \hline
+$\epsilon$-greedy & $\epsilon$ & probability of exploration \\ \hline
+$\epsilon$-decreasing & $\epsilon_0$ & probability of exploration in 0-th trial \\ \hline
+WSLS & $\gamma$ & probability of staying after winning and shifting after losing \\ \hline
+Full latent state & $\theta$ & multifaceted, see [\ref{shunan}] \\ \hline
+$\tau$-switch & $\tau$ & trial \# for switching from exploration to exploitation \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Inference of Parameters for Heuristics}
 We use grid search to infer the key parameter for each heuristic. This differs from the original paper which infers parameters by calculating a posterior predictive average agreement via sampling. For the optimal data, we simulate the model to identify the parameter that yields the highest decision match percentage to the optimal decision sequence. For experimental data, we define an $L$-value similar to a likelihood function of a Bernoulli function, and find the parameter yielding the highest $L$-value. We note that there is no guarantee of the convexity of the $L$-value function. Without loss of generality, the following approach is explained based on the $\epsilon$-greedy heuristic. 
