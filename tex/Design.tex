@@ -1,15 +1,17 @@
 section{Design}
 \label{design}
 
-
-\subsection{Formulation of MDP}
-\todo[inline] {states definition, recursive formulation, decision rule}
-
 \subsection{Environments}
-
-
+The environment has been defined by a Beta($\alpha,\beta$) distribution where $\alpha$ and $\beta$ define the count of prior successes and failures respectively. We used 3 different environmental conditions namely ‘plentiful’($\alpha=4,\beta=2$) , ‘neutral’($\alpha=1,\beta=1$) and ‘scarce’($\alpha=2,\beta=4$) to control the reward rates and observe the change in behavior of the models as well as human decisions.
 
 \subsection{Generation of Optimal data}
+For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [cite Steyvers]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2 respectively and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2 respectively up till trial $t$. For a given environment Beta($\alpha,\beta$), we can recursively define the expected future reward $V_t$ for state $S_t$ as follows : 
+
+$$V_t(s_1,s_2,f_1,f_2) = \max_{i} \left(\frac{s_i + \alpha}{s_i + f_i + \alpha + \beta} V_{t+1}(...,s_i+1,...) + \frac{f_i + \beta}{s_i + f_i + \alpha + \beta}V_{t+1}(...,f_i+1,...)\right)$$ 
+
+We know that the expected future reward for the last trial $T$ is given by $V_{t=T}=0$. This completes the recursive definition. To obtain the optimal decision, we select the argument that maximizes the above expression, thus giving us the best arm to be chosen for each state. 
+
+To obtain a set of decisions for each trial, we sample the reward rate $\mu_i$ for each arm $i$ from the known Beta distribution of that environment. The optimal decision $i$ for each trial combined with the reward sampled from the Bernoulli distribution given by $\mu_i$ gives us the next state. The above process is repeated for $T$ trials to get the optimal decisions and corresponding rewards.
 
 \subsubsection{Algorithm}
 
