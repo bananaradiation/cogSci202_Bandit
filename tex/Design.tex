@@ -24,27 +24,19 @@ In inferring from the optimal decision data, we assume that the optimal decision
 To infer parameters from the optimal data, we first run the model model describe above with set environment variable inputs $\{(4,2), (1,1), (2,4)\}$. This returns each arm's reward distribution sampled from a beta distribution and a sequence of decisions for every enumerable state. The best $\epsilon$ parameter is found by averaging the results of the grid search which uses decision sequence match percentage as the comparator to optimal. The averaged parameter value and $\mu$ values are then used to simulate the $\epsilon$-greedy heuristic to result in the heuristic's optimal decision sequence. Finally this heuristic decision sequence is compared to the optimal decision sequence again using match percentage for assessment.
 Algorithm below describes the entire process,
 \begin{algorithm}[H]
-\caption{LDA Generative process with collapsed Gibbs Sampling }
-\label{generativeLDA_algorithm}
+\caption{Algorithm to get decisions from the models and compare them with optimal decisions}
+\label{algoOptimalModelComparison}
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 \begin{algorithmic}[1]
-		\REQUIRE words $\bm{w} \in $ documents $\bm{d} \in [1,D]$
+		\REQUIRE Values of $\alpha$ and $\beta$ which define the environment using the beta distribution $Beta(\alpha,\beta)$
 %		\BEGIN \\
-			\STATE randomly initialize $\bm{z}$ and increment counters
-		\FOR {iteration $i \in [1,epoch]$}
-			\FOR { document $d \in [1,D]$}
-				\FOR {word $\in [1, N_{d}] $}
-					\STATE $topic \leftarrow z[word]$
-					\STATE decrement counters according to document $d$, $topic$ and $word$
-					\FOR {$k \in [1,K]$}
-						\STATE calculate $p(z=k|.) $ using Gibbs equation
-					\ENDFOR
-					\STATE $newTopic \leftarrow $ sample from $p(z|.)$
-					\STATE $z[word] \leftarrow newTopic$
-					\STATE decrement counters according to document $d$, $newTopic$ and $word$
-				\ENDFOR
-			\ENDFOR
+	\STATE Draw the Bernoulli distributions $\mu_1$ and $\mu_2$ for the rewards of the 2 arms from the distribution $Beta(\alpha,\beta)$
+	\STATE Generate optimal decisions $d_{opt}$ using $\mu_1$, $\mu_2$
+		\FOR {each model}
+			\STATE Do a grid search over the parameter of the model to find the optimal parameter value $p$
+			\STATE $d_{model} \leftarrow $ run model with the parameter value $p$ and arm distributions $\mu_1$ and $\mu_2$
+			\STATE compare $d_{model}$ and $d_{opt}$ and calculate the match percentage
 		\ENDFOR
 %		\END \\	
 \end{algorithmic}
