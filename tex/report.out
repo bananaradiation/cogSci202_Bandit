@@ -11,12 +11,13 @@
 \BOOKMARK [3][-]{subsubsection.3.4.1}{Inference from Optimal Data}{subsection.3.4}% 11
 \BOOKMARK [3][-]{subsubsection.3.4.2}{Inference from Human Data}{subsection.3.4}% 12
 \BOOKMARK [3][-]{subsubsection.3.4.3}{Common Algorithm Input : \(alpha, beta, decisions, rewards\), output: \(parameter value\)}{subsection.3.4}% 13
-\BOOKMARK [1][-]{section.4}{Lessons learnt}{}% 14
-\BOOKMARK [1][-]{section.5}{Results}{}% 15
-\BOOKMARK [2][-]{subsection.5.1}{Parameters by inference from optimal data}{section.5}% 16
-\BOOKMARK [2][-]{subsection.5.2}{Parameters by inference from human data}{section.5}% 17
-\BOOKMARK [2][-]{subsection.5.3}{Match Percentage}{section.5}% 18
-\BOOKMARK [3][-]{subsubsection.5.3.1}{Comparison with optimal data}{subsection.5.3}% 19
-\BOOKMARK [3][-]{subsubsection.5.3.2}{Comparison with human data}{subsection.5.3}% 20
-\BOOKMARK [1][-]{section.6}{Conclusions}{}% 21
-\BOOKMARK [1][-]{appendix.A}{Appendix}{}% 22
+\BOOKMARK [1][-]{section.4}{Experimental Setup}{}% 14
+\BOOKMARK [1][-]{section.5}{Lessons learnt}{}% 15
+\BOOKMARK [1][-]{section.6}{Results}{}% 16
+\BOOKMARK [2][-]{subsection.6.1}{Parameters by inference from optimal data}{section.6}% 17
+\BOOKMARK [2][-]{subsection.6.2}{Parameters by inference from human data}{section.6}% 18
+\BOOKMARK [2][-]{subsection.6.3}{Match Percentage}{section.6}% 19
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Comparison with optimal data}{subsection.6.3}% 20
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Comparison with human data}{subsection.6.3}% 21
+\BOOKMARK [1][-]{section.7}{Conclusions}{}% 22
+\BOOKMARK [1][-]{appendix.A}{Appendix}{}% 23

@@ -20,6 +20,9 @@ For inferring parameters for different heuristic methods, we use the optimal dat
 
 
 \subsubsection{Inference from Optimal Data}
+In inferring from the optimal decision data, we assume that the optimal decision-maker has perfect knowledge of the environment, i.e. the $\alpha$ and $\beta$ values are known. This makes sense since our goal of inference from the optimal data is to characterize the decision making process for given heuristics and see how well they fit the best possible decision. For each of the heuristic methods, we infer the parameters of method using grid search on the parameter. Thus, we infer the parameter $\epsilon$ for $\epsilon-greedy$ and $\epsilon-decreasing$ methods, parameter $\gamma$ for WSLS method and parameter $\tau$ for $\tau-switch$ model. Once we have inferred the parameters, we then use these parameters along with the same reward rates to general the decision. A comparison of these decisions with the optimal ones gives us an idea of how well the different methods perform in the setting. Algorithm below describes the entire process,
+
+
 
 \subsubsection{Inference from Human Data}
 
@@ -53,6 +56,12 @@ For inferring parameters for different heuristic methods, we use the optimal dat
 \end{algorithmic}
 \end{algorithm}
 	
+
+\section{Experimental Setup}
+The goals of our experimental setup are thus 3-fold: generate optimal data for the bandit problem given different environment settings (plentiful, neutral and sparse), infer parameter values for different bandit algorithms from both optimal as well as human data and test the inferred models for decision-making given the same reward rates as in the optimal setting. 
+We perform 50 experiments on 3 different environments plentiful ($\alpha$ = 4,$\beta$ = 2), neutral($\alpha$ = 1, $\beta$ = 1) and scarce ($\alpha$ = 2,$\beta$ = 4). Each experiment consists of 8 trials and the reward rates for each arm $\theta_k$ in a given experiment is drawn from the beta distribution i.e. $\theta_k \sim Beta (\alpha, \beta)$. Thus, we draw a total of 100 reward rates in the setting. 
+
+For the $i^{th}$ trial in the $t^{th}$ experiment, if the arm $k$ is chosen, the reward $R_i^t$ is determined by the outcome of a Bernoulli using the reward rate $\theta_k^t$, so $R_i^t \sim Bernoulli (\theta_k^t)$.
 
 
 \section{Lessons learnt}

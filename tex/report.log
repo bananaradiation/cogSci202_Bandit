@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.30)  31 MAY 2014 15:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.30)  31 MAY 2014 23:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -793,17 +793,16 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
  (./introduction.tex
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
 ine 4.
-) (./background.tex) (./Design.tex
+) (./background.tex) (./Design.tex [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 30.
+put line 33.
+) (./ResultsAndAnalysis.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Underfull \vbox (badness 7362) has occurred while \output is active []
-
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./ResultsAndAnalysis.tex
-)
-(./Conclusion.tex) (./appendix.tex) (./report.bbl [2]
+ [2])
+(./Conclusion.tex) (./appendix.tex) (./report.bbl
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 ))
@@ -815,17 +814,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 67.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 000D4CC2DAEAF3EF4BE8E9C8573B9723;1538.
+(rerunfilecheck)             Checksum: 6FEED6A5CC301088E7DF43F10A783024;1592.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 17599 strings out of 493304
- 305840 string characters out of 6139871
+ 17601 strings out of 493304
+ 305860 string characters out of 6139871
  486633 words of memory out of 5000000
- 20625 multiletter control sequences out of 15000+600000
+ 20626 multiletter control sequences out of 15000+600000
  18663 words of font info for 42 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 63i,8n,80p,425b,936s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,8n,80p,976b,936s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
@@ -835,10 +834,10 @@ public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/co
 urier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (3 pages, 104409 bytes).
+Output written on report.pdf (3 pages, 111612 bytes).
 PDF statistics:
- 192 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
- 55 named destinations out of 1000 (max. 500000)
- 189 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 196 PDF objects out of 1000 (max. 8388607)
+ 180 compressed objects within 2 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 197 words of extra memory for PDF output out of 10000 (max. 10000000)
 
