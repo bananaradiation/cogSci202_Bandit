@@ -21,8 +21,8 @@ function [best_alpha_beta, best_seq] = grid_search_models(data_A, data_R, T, mod
 
 % Initialize the grid search
 
-alpha = 1:9;
-beta = 9:-1:1;
+alpha = 1:4;
+beta = 4:-1:1;
 seq = [];
 
 % List all possible sequences
