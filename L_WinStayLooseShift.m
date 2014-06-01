@@ -62,15 +62,15 @@ for i = 1:n;
   % Components for the likelihood function of each trial 
   % List out the rules 
 
-     stay = abs(seq_A(games, trial - 1) - seq_A(games, trial));
+     stay = 1 - abs(seq_A(games, trial - 1) - a_vec(trial));
     
-     if stay == 1;
+     if seq_R(games,trial-1) == 1;
 
-     a = (gamma^(a_vec(trial - 1)))*((1-gamma)^(1 - a_vec(trial - 1)));
+     a = (gamma^(stay))*((1-gamma)^(1 - stay));
 
      else;
 
-     a = ((1-gamma)^(a_vec(trial - 1)))*(gamma^(1 - a_vec(trial - 1)));
+     a = ((1-gamma)^(stay))*(gamma^(1 - stay));
 
      end; 
 

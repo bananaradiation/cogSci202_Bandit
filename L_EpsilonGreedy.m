@@ -25,15 +25,15 @@ L = zeros(n,50);
 n
 for i = 1:n;
 
-  seq_A = squeeze(data_A(i,:,:))'
-  seq_R = squeeze(data_R(i,:,:))'
+  seq_A = squeeze(data_A(i,:,:));
+  seq_R = squeeze(data_R(i,:,:));
 
   for games = 1:size(seq_A,1);
    
    % Initialize the mu, s, f, and LL
 
-    mu_1 = alpha(1)/(alpha(1)+beta(1));
-    mu_2 = alpha(2)/(alpha(2)+beta(2));
+    mu_1 = alpha/(alpha+beta);
+    mu_2 = alpha/(alpha+beta);
     s_1 = 0;
     s_2 = 0;
     f_1 = 0;
@@ -54,8 +54,8 @@ for i = 1:n;
 
   end;
 
-  mu_1 = (alpha(1) + s_1)/(1 + alpha(1) + beta(1));
-  mu_2 = (alpha(2) + s_2)/(1 + alpha(2) + beta(2));
+  mu_1 = (alpha + s_1)/(1 + alpha + beta);
+  mu_2 = (alpha + s_2)/(1 + alpha + beta);
 
   for trial = 2:T
 
@@ -81,8 +81,8 @@ for i = 1:n;
 
      LL = LL*a*r; 
 
-     mu_1 = (alpha(1) + s_1)/(s_1 + f_1 + alpha(1) + beta(1));
-     mu_2 = (alpha(2) + s_2)/(s_2 + f_2  + alpha(2) + beta(2));
+     mu_1 = (alpha + s_1)/(s_1 + f_1 + alpha + beta);
+     mu_2 = (alpha + s_2)/(s_2 + f_2  + alpha + beta);
 
      end;
 
