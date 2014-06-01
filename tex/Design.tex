@@ -1,4 +1,4 @@
-\section{Design}
+section{Design}
 \label{design}
 
 
@@ -16,46 +16,40 @@
 
 
 \subsection{Inference of Parameters for Heuristics}
-For inferring parameters for different heuristic methods, we use the optimal data and do a grid search. 
-
+We use grid search to infer the key parameter for each heuristic. This differs from the original paper which infers parameters by calculating a posterior predictive average agreement via sampling. For the optimal data, we simulate the model to identify the parameter that yields the highest decision match percentage to the optimal decision sequence. For experimental data, we define an $L$-value similar to a likelihood function of a Bernoulli function, and find the parameter yielding the highest $L$-value. We note that there is no guarantee of the convexity of the $L$-value function. Without loss of generality, the following approach is explained based on the $\epsilon$-greedy heuristic. 
 
 \subsubsection{Inference from Optimal Data}
-In inferring from the optimal decision data, we assume that the optimal decision-maker has perfect knowledge of the environment, i.e. the $\alpha$ and $\beta$ values are known. This makes sense since our goal of inference from the optimal data is to characterize the decision making process for given heuristics and see how well they fit the best possible decision. For each of the heuristic methods, we infer the parameters of method using grid search on the parameter. Thus, we infer the parameter $\epsilon$ for $\epsilon-greedy$ and $\epsilon-decreasing$ methods, parameter $\gamma$ for WSLS method and parameter $\tau$ for $\tau-switch$ model. Once we have inferred the parameters, we then use these parameters along with the same reward rates to general the decision. A comparison of these decisions with the optimal ones gives us an idea of how well the different methods perform in the setting. Algorithm below describes the entire process,
+In inferring from the optimal decision data, we assume that the optimal decision-maker has perfect knowledge of the environment, i.e. the $\alpha$ and $\beta$ values are known. This makes sense since our goal of inference from the optimal data is to characterize the decision making process for given heuristics and see how well they fit the best possible decision. For each of the heuristic methods, we infer the parameters of method using grid search on the parameter. Thus, we infer the parameter $\epsilon$ for $\epsilon-greedy$ and $\epsilon-decreasing$ methods, parameter $\gamma$ for WSLS method and parameter $\tau$ for $\tau-switch$ model. Once we have inferred the parameters, we then use these parameters along with the same reward rates to general the decision. A comparison of these decisions with the optimal ones gives us an idea of how well the different methods perform in the setting. 
 
-
+To infer parameters from the optimal data, we first run the model model describe above with set environment variable inputs $\{(4,2), (1,1), (2,4)\}$. This returns each arm's reward distribution sampled from a beta distribution and a sequence of decisions for every enumerable state. The best $\epsilon$ parameter is found by averaging the results of the grid search which uses decision sequence match percentage as the comparator to optimal. The averaged parameter value and $\mu$ values are then used to simulate the $\epsilon$-greedy heuristic to result in the heuristic's optimal decision sequence. Finally this heuristic decision sequence is compared to the optimal decision sequence again using match percentage for assessment.
+Algorithm below describes the entire process,
 
 \subsubsection{Inference from Human Data}
+We derive the following inference method based on three key factors: (1) there are a finite number of possible decision sequences; (2) the possible combinations of environment variables, $\alpha'$ and $\beta'$, are constrained; and (3) the assumption of conditional independence.
+
+We define the $L$-value as 
+\begin{align}
+\begin{split}
+	\label{eq:likelihood}
+	L(Action,Reward|Data) &= P(Action,Reward|Data) \\
+						  &= P(Action|Data) P(Reward|Data) \\
+						  &= P(f(\epsilon)|Data) P(f(\mu_k)|Data) \\
+						  &= \epsilon^y (1-\epsilon)^{1-y} \mu_k^x (1-\mu_k)^{1-x}
+\end{split}
+\end{align}
+where data corresponds to either the optimal decision sequence or the observed decision sequence of human participants encoded in the binary value for $x$ and $y$. The random variables for action and reward are functions depending on the heuristic parameter, $\epsilon$, and the arm$_k$'s reward probability, $\mu_k$. Additionally the actions are based on rules defined by each heuristic. Here we make the assumption that given data, the probabiliy of action and reward are independent. This assumption stems from our intuition that given data for a decision sequence, the probabilities for $\epsilon$ and $\mu$ are independent. As each component of $L$-value is a function of its respective parameter, they are independent as well. This may not hold true for human data, but if a heuristic is indeed capturing the optimal decision sequence, a human's expectation of $\mu$ would match the arm's true reward probability.
+
+Using this, we grid search over four factors that yield the maximum $L$-value: a sequence of decisions, the human's belief of the two environment variables, and the key heuristic parameter. There are a finite number of decision sequences, specifically $2^8$ for an 8-trial experiment, and we constrain our environment with $\alpha'+\beta'=10$ to simplify the search process. Finally, we fit the human data to the optimal heuristic parameter and sequence to determine a measure of agreement averaged over all games.
 
 
-\subsubsection{Common Algorithm Input : (alpha, beta, decisions, rewards), output: (parameter value)}
-\label{appendixAlgo}
-\begin{algorithm}[H]
-\caption{LDA Generative process with collapsed Gibbs Sampling }
-\label{generativeLDA_algorithm}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\begin{algorithmic}[1]
-		\REQUIRE words $\bm{w} \in $ documents $\bm{d} \in [1,D]$
-%		\BEGIN \\
-			\STATE randomly initialize $\bm{z}$ and increment counters
-		\FOR {iteration $i \in [1,epoch]$}
-			\FOR { document $d \in [1,D]$}
-				\FOR {word $\in [1, N_{d}] $}
-					\STATE $topic \leftarrow z[word]$
-					\STATE decrement counters according to document $d$, $topic$ and $word$
-					\FOR {$k \in [1,K]$}
-						\STATE calculate $p(z=k|.) $ using Gibbs equation
-					\ENDFOR
-					\STATE $newTopic \leftarrow $ sample from $p(z|.)$
-					\STATE $z[word] \leftarrow newTopic$
-					\STATE decrement counters according to document $d$, $newTopic$ and $word$
-				\ENDFOR
-			\ENDFOR
-		\ENDFOR
-%		\END \\	
-\end{algorithmic}
-\end{algorithm}
-	
+
+\subsection{Inference Issues}
+Iterating grid search for finding the best $\epsilon$ value yielded results with wide variation, and taking an average for many iterations would probably give us something close to $\frac{1}{2}$. One reason why we get unconclusive results may be because of how we choose the best parameter when doing grid search with the optimal data: decision match percentage. Many different parameter values could result in 100\% match, and it's not clear how to differentiate all these parameters and identify an optimal value. If the best match results in just one decision being off (e.g. a match percentage of 87.5\%), there could eight different decision sequences that differ from the optimal sequence by one. This mean there could be \textit{at least} eight different $\epsilon$ parameters that result in that match percentage. We could improve our method by tracking all the different decision sequences that could result from a particular match percentage and the corresponding $\epsilon$. Then each identified parameter choice would have to be simulated under the heuristic. Regardless of an resulting increase in complexity, we would still need to define a method to compare all these parameter choices, and it is not clear what this definition should be.
+
+With the above issues, why not instead use $L$-value to infer optimal parameters? The definition for $L$-value is conditioned on data. In the experiment, data collected consists of the actions taken and the resulting rewards from those actions. For human data, $\mu'$ is an expectation of the arm's reward probability and that belief is continuously updated over the course of the trial; nowhere is it used to determine the reward because the data is already observed. 
+
+However, the optimal data consists of all enumerable states and the optimal decision sequence to take for each state. The reward data is drawn from the arm's reward probability so for an optimal model that data is probabilistic depending on the true $\mu$. In the optimal model, $\mu'$ is also a continuously updated expectation of the true reward probability. Even though every state can be enumerated, it is not clear how to choose which state to transition to without drawing the outcome of an action from the true $\mu$, so there are many $L$-values that could be maximal depending on the state.
+
 
 \section{Experimental Setup}
 The goals of our experimental setup are thus 3-fold: generate optimal data for the bandit problem given different environment settings (plentiful, neutral and sparse), infer parameter values for different bandit algorithms from both optimal as well as human data and test the inferred models for decision-making given the same reward rates as in the optimal setting. 
@@ -65,3 +59,7 @@ For the $i^{th}$ trial in the $t^{th}$ experiment, if the arm $k$ is chosen, the
 
 
 \section{Lessons learnt}
+\textbf{We only evaluate this for one human data..????? maybe we should mention this in the beginning or something...?}
+
+\subsection{}
+Our inference method for human data cannot be applied to the full latent state model because there are two hidden variables: $z_i$, which denotes if state $i$ is exploring or exploiting, and $\gamma$, which is an accuracy of execution parameter depending on what situation the state is. Both these values are assumed to be uninformative priors in the original research [\ref{latent}] and drawn from either uniform or Bernoulli distributions. We cannot intuitively conclude why $P(action|data) = P(f(\theta)|data) = P(g(z,\gamma|data))$ would be conditionally independent of the rewards component and thus doing a grid search for highest $L$-value does not make sense. The ungeneralizability of $L$-value indicates that it may not be the correct method to do parameter inference.
