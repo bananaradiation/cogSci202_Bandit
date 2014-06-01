@@ -1,10 +1,9 @@
+\section{Goals}
+The goals of our experimental setup are 3-fold: generate optimal data for the bandit problem given different environment settings, fit parameter values for different heuristic models to optimal model to get best heuristic decision sequences, and compare these with the optimal and human data.
+
 \section{Implementation}
-
-\subsection{Environments}
-The environment has been defined by a Beta($\alpha,\beta$) distribution where $\alpha$ and $\beta$ define the count of prior successes and failures, respectively. We used 3 different environmental conditions namely ‘plentiful’($\alpha=4,\beta=2$) , ‘neutral’($\alpha=1,\beta=1$) and ‘scarce’($\alpha=2,\beta=4$) to control the reward rates and observe the change in behavior of the models as well as human decisions.
-
-\subsection{Generation of Optimal data}
-For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [\ref{steyvers}]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
+\subsection{Experiment Setup}
+Our dataset [\ref{data}] consists of 50 experiments on 3 environments: ‘plentiful’($\alpha=4,\beta=2$) , ‘neutral’($\alpha=1,\beta=1$) and ‘scarce’($\alpha=2,\beta=4$). $\alpha$ and $\beta$ define the count of prior successes and failures, respectively. Each experiment consists of 8 trials and the reward rates $\mu_k$ for arm $k$ is drawn from the beta distribution, i.e. $\mu_k \sim Beta (\alpha, \beta)$. Thus, we draw a total of 100 reward rates in the setting. For the $i^{th}$ trial in the $t^{th}$ experiment, if arm $k$ is chosen, the reward $R_i^t$ is determined by the outcome of a Bernoulli using the reward rate $\mu_k^t$, so $R_i^t \sim Bernoulli (\mu_k^t)$.
 
 \subsection{Optimal Model}
 For a small number of trials and a fixed environment, the optimal solution can be obtained by following a dynamic programming approach [\ref{kaelbling},\ref{steyvers}]. The state of the $t$th trial can be defined as $S_t = <s_1,s_2,f_1,f_2>$, where $s_1$ \& $s_2$ are the number of successes for arm 1 \& 2, respectively, and $f_1$ \& $f_2$ are the number of failures for arm 1 \& 2, respectively, up to trial $t$. For a given environment $\alpha,\beta$, we can recursively define the value function as the expected future reward for state $S_t$ plus the current reward at state $S_t$ as follows : 
@@ -24,7 +23,7 @@ The state value function for the last trial $V_T=\frac{s_i + \alpha}{s_i + f_i +
 To obtain a set of decisions for each trial, we sample the reward rate $\mu_i$ for each arm $i$ from the known Beta distribution of that environment. The optimal decision $i$ for each trial combined with the reward sampled from the Bernoulli distribution given by $\mu_i$ gives us the next state.
 
 \subsection{Heuristic Models}
-We implement the five heuristics used in \ref{shunan2009} and summarize the key parameters and their meanings in the following table: 
+We implement the five heuristics used in \ref{shunan2011} and summarize the key parameters and their meanings in the following table: 
 
 \begin{table}[h]
 \begin{tabular}{|l|c|l|}
@@ -33,82 +32,57 @@ We implement the five heuristics used in \ref{shunan2009} and summarize the key 
 $\epsilon$-greedy & $\epsilon$ & probability of exploration \\ \hline
 $\epsilon$-decreasing & $\epsilon_0$ & probability of exploration in 0-th trial \\ \hline
 WSLS & $\gamma$ & probability of staying after winning and shifting after losing \\ \hline
-Full latent state & $\theta$ & multifaceted, see [\ref{shunan}] \\ \hline
+Full latent state & $\theta$ & multifaceted, see [\ref{shunan2009}] \\ \hline
 $\tau$-switch & $\tau$ & trial \# for switching from exploration to exploitation \\ \hline
 \end{tabular}
 \end{table}
 
 \subsection{Heuristic Model Comparisons}
-We use grid search to infer the key parameter for each heuristic. This differs from the original paper which infers parameters by calculating a posterior predictive average agreement via sampling. For the optimal data, we simulate the heuristic model to identify the key parameter that yields the highest decision match percentage to the optimal decision sequence. For experimental data, we define an $L$-value similar to a likelihood function of a Bernoulli function, simulate the heuristic model, and find the $\alpha,\beta$ parameters yielding the highest $L$-value. Without loss of generality, the following approach is explained based on the $\epsilon$-greedy heuristic. 
+We use grid search to find the key parameter for each heuristic. This differs from the original paper which infers parameters by calculating a posterior predictive average agreement via sampling. For the optimal data, we simulate the heuristic model to identify the key parameter that yields the highest decision match percentage to the optimal decision sequence. For experimental data, we define an $L$-value similar to a likelihood function of a Bernoulli function, simulate the heuristic model, and find the $\alpha,\beta$ parameters yielding the highest $L$-value. Without loss of generality, the following approach is explained based on the $\epsilon$-greedy heuristic. 
 
 \subsubsection{Fitting Heuristic Decision to Optimal Data}
-In inferring from the optimal decision data, we assume that the optimal decision-maker has perfect knowledge of the environment, i.e. the $\alpha$ and $\beta$ values are known. This makes sense since our goal of inference from the optimal data is to characterize the decision making process for given heuristics and see how well they fit the best possible decision. For each of the heuristic methods, we infer the key parameter using grid search. Once we have inferred the key parameter, 
+We assume the optimal decision-maker has perfect knowledge of the environment, i.e. the $\alpha$ and $\beta$ values are known. This makes sense as we want to characterize a heuristic's decision making process and see how well it compares to the best possible decision. To find the best fit for each of the heuristic methods, we perform grid search for its key parameter value. For example, the best $\epsilon$ parameter is found by averaging the results of the grid search which uses decision sequence match percentage as the comparator to optimal. Then this $\epsilon$ and the same reward rate, $\mu_i$, used by the optimal model are used to simulate the $\epsilon$-greedy heuristic, resulting in the heuristic's best decision sequence. Finally this heuristic decision sequence is compared to the optimal decision sequence again using match percentage for assessment. A comparison of these decisions with the optimal decisions gives us an idea of each heuristic's performance.
 
-we use 
-
-
-it along with the reward probabilities, $\mu_i$, used in the generation of optimal data. 
-
-
-A comparison of these decisions with the optimal ones gives us an idea of how well the different methods perform in each setting. 
-
-To infer parameters from the optimal data, we first run the model model describe above with set environment variable inputs $\{(4,2), (1,1), (2,4)\}$. This returns each arm's reward distribution sampled from a beta distribution and a sequence of decisions for every enumerable state. The best $\epsilon$ parameter is found by averaging the results of the grid search which uses decision sequence match percentage as the comparator to optimal. The averaged parameter value and $\mu$ values are then used to simulate the $\epsilon$-greedy heuristic to result in the heuristic's optimal decision sequence. Finally this heuristic decision sequence is compared to the optimal decision sequence again using match percentage for assessment.
-Algorithm below describes the entire process,
-\begin{algorithm}[H]
-\caption{Algorithm to get decisions from the models and compare them with optimal decisions}
-\label{algoOptimalModelComparison}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\begin{algorithmic}[1]
-		\REQUIRE Values of $\alpha$ and $\beta$ which define the environment using the beta distribution $Beta(\alpha,\beta)$
-%		\BEGIN \\
-	\STATE Draw the Bernoulli distributions $\mu_1$ and $\mu_2$ for the rewards of the 2 arms from the distribution $Beta(\alpha,\beta)$
-	\STATE Generate optimal decisions $d_{opt}$ using $\mu_1$, $\mu_2$
-		\FOR {each model}
-			\STATE Do a grid search over the parameter of the model to find the optimal parameter value $p$
-			\STATE $d_{model} \leftarrow $ run model with the parameter value $p$ and arm distributions $\mu_1$ and $\mu_2$
-			\STATE compare $d_{model}$ and $d_{opt}$ and calculate the match percentage
-		\ENDFOR
-%		\END \\	
-\end{algorithmic}
-\end{algorithm}
+% Algorithm below describes the entire process,
+% \begin{algorithm}[H]
+% \caption{Algorithm to get decisions from the models and compare them with optimal decisions}
+% \label{algoOptimalModelComparison}
+% \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+% \renewcommand{\algorithmicensure}{\textbf{Output:}}
+% \begin{algorithmic}[1]
+% 		\REQUIRE Values of $\alpha$ and $\beta$ which define the environment using the beta distribution $Beta(\alpha,\beta)$
+% %		\BEGIN \\
+% 	\STATE Draw the Bernoulli distributions $\mu_1$ and $\mu_2$ for the rewards of the 2 arms from the distribution $Beta(\alpha,\beta)$
+% 	\STATE Generate optimal decisions $d_{opt}$ using $\mu_1$, $\mu_2$
+% 		\FOR {each model}
+% 			\STATE Do a grid search over the parameter of the model to find the optimal parameter value $p$
+% 			\STATE $d_{model} \leftarrow $ run model with the parameter value $p$ and arm distributions $\mu_1$ and $\mu_2$
+% 			\STATE compare $d_{model}$ and $d_{opt}$ and calculate the match percentage
+% 		\ENDFOR
+% %		\END \\	
+% \end{algorithmic}
+% \end{algorithm}
 
 \subsubsection{Fitting Heuristic Decision to Human Data}
-We derive the following inference method based on three key factors: (1) there are a finite number of possible decision sequences; (2) the possible combinations of environment variables, $\alpha'$ and $\beta'$, are constrained; and (3) the assumption of conditional independence.
+We derive our method for model fitting to human data based on three key factors: (1) there are a finite number of possible decision sequences; (2) we constraint the possible combinations of environment variables, $\alpha'$ and $\beta'$; and (3) an assumption of conditional independence of the underlying arm's reward distribution and the action sequence.
 
-We define the $L$-value as 
+We define the $L$-value as :
 \begin{align}
 \begin{split}
-	\label{eq:likelihood}
+	\label{eq:likelihood} 
 	L(Action,Reward|Data) &= P(Action,Reward|Data) \\
-						  &= P(Action|Data) P(Reward|Data) \\
-						  &= P(f(\epsilon)|Data) P(f(\mu_k)|Data) \\
-						  &= \epsilon^y (1-\epsilon)^{1-y} \mu_k^x (1-\mu_k)^{1-x}
+						  &= P(f(\epsilon),f(\mu_k)|Data) \\
+						  &= P(f(\epsilon)|Data) P(f(\mu_k)|Data) \\	
+						  &= \epsilon^x (1-\epsilon)^{1-x} \mu_k^y (1-\mu_k)^{1-y}
 \end{split}
 \end{align}
-where data corresponds to either the optimal decision sequence or the observed decision sequence of human participants encoded in the binary value for $x$ and $y$. The random variables for action and reward are functions depending on the heuristic parameter, $\epsilon$, and the arm$_k$'s reward probability, $\mu_k$. Additionally the actions are based on rules defined by each heuristic. Here we make the assumption that given data, the probabiliy of action and reward are independent. This assumption stems from our intuition that given data for a decision sequence, the probabilities for $\epsilon$ and $\mu$ are independent. As each component of $L$-value is a function of its respective parameter, they are independent as well. This may not hold true for human data, but if a heuristic is indeed capturing the optimal decision sequence, a human's expectation of $\mu$ would match the arm's true reward probability.
+where data corresponds to the observed decision and reward sequence of human participants encoded in the binary value for $x$ and $y$, respectively. The random variables for action and reward are functions depending on the heuristic parameter, $\epsilon$, and arm$_k$'s reward probability, $\mu_k$. Additionally the actions are based on rules defined by each heuristic. Here we make the assumption that the probabiliy of the random variables Action and Reward given human data are independent. This assumption stems from our intuition that given data for a decision sequence, the probabilities for $\epsilon$ and $\mu$ are independent. This assumption may not hold true for human data, but if a heuristic is indeed capturing the best decision sequence, a human's expectation of $\mu$ would match the arm's true reward probability.
 
-Using this, we grid search over four factors that yield the maximum $L$-value: a sequence of decisions, the human's belief of the two environment variables, and the key heuristic parameter. There are a finite number of decision sequences, specifically $2^8$ for an 8-trial experiment, and we constrain our environment with $\alpha'+\beta'=10$ to simplify the search process. Finally, we fit the human data to the optimal heuristic parameter and sequence to determine a measure of agreement averaged over all games.
+Using this, we grid search over three factors that yield the maximum $L$-value: a sequence of decisions, and the human's belief of the two environment variables. There are a finite number of decision sequences, specifically $2^8$ for an 8-trial experiment, and we constrain our environment with $\alpha'+\beta'=10$ to simplify the search process. Finally, we fit the human data to the optimal heuristic parameter and sequence to determine a measure of agreement averaged over all games.
 
-
-
-\subsection{Inference Issues}
-Iterating grid search for finding the best $\epsilon$ value yielded results with wide variation, and taking an average for many iterations would probably give us something close to $\frac{1}{2}$. One reason why we get unconclusive results may be because of how we choose the best parameter when doing grid search with the optimal data: decision match percentage. Many different parameter values could result in 100\% match, and it's not clear how to differentiate all these parameters and identify an optimal value. If the best match results in just one decision being off (e.g. a match percentage of 87.5\%), there could eight different decision sequences that differ from the optimal sequence by one. This mean there could be \textit{at least} eight different $\epsilon$ parameters that result in that match percentage. We could improve our method by tracking all the different decision sequences that could result from a particular match percentage and the corresponding $\epsilon$. Then each identified parameter choice would have to be simulated under the heuristic. Regardless of an resulting increase in complexity, we would still need to define a method to compare all these parameter choices, and it is not clear what this definition should be.
+\subsection{Potential Design Issues}
+Iterating grid search for finding the best $\epsilon$ value yielded results with wide variation. One reason why we get inconclusive results may be because of how we choose the best parameter when doing grid search with the optimal data: decision match percentage. Many different parameter values could result in 100\% match, and it's not clear how to differentiate the parameters and identify an optimal value. If the best match results in just one decision being off (e.g. a match percentage of 87.5\%), there could eight different decision sequences that differ from the optimal sequence by one. This mean there could be \textit{at least} eight different $\epsilon$ parameters that result in that match percentage. We could improve our method by tracking all the different decision sequences that could result from a particular match percentage and the corresponding $\epsilon$. Then each identified parameter choice would have to be simulated under the heuristic and compared. Regardless of an resulting increase in complexity, we would still need to define a method to compare all these parameter choices, and it is not clear what this definition should be.
 
 With the above issues, why not instead use $L$-value to infer optimal parameters? The definition for $L$-value is conditioned on data. In the experiment, data collected consists of the actions taken and the resulting rewards from those actions. For human data, $\mu'$ is an expectation of the arm's reward probability and that belief is continuously updated over the course of the trial; nowhere is it used to determine the reward because the data is already observed. 
 
 However, the optimal data consists of all enumerable states and the optimal decision sequence to take for each state. The reward data is drawn from the arm's reward probability so for an optimal model that data is probabilistic depending on the true $\mu$. In the optimal model, $\mu'$ is also a continuously updated expectation of the true reward probability. Even though every state can be enumerated, it is not clear how to choose which state to transition to without drawing the outcome of an action from the true $\mu$, so there are many $L$-values that could be maximal depending on the state.
-
-
-\section{Experimental Setup}
-The goals of our experimental setup are thus 3-fold: generate optimal data for the bandit problem given different environment settings (plentiful, neutral and sparse), infer parameter values for different bandit algorithms from both optimal as well as human data and test the inferred models for decision-making given the same reward rates as in the optimal setting. 
-We perform 50 experiments on 3 different environments plentiful ($\alpha$ = 4,$\beta$ = 2), neutral($\alpha$ = 1, $\beta$ = 1) and scarce ($\alpha$ = 2,$\beta$ = 4). Each experiment consists of 8 trials and the reward rates for each arm $\theta_k$ in a given experiment is drawn from the beta distribution i.e. $\theta_k \sim Beta (\alpha, \beta)$. Thus, we draw a total of 100 reward rates in the setting. 
-
-For the $i^{th}$ trial in the $t^{th}$ experiment, if the arm $k$ is chosen, the reward $R_i^t$ is determined by the outcome of a Bernoulli using the reward rate $\theta_k^t$, so $R_i^t \sim Bernoulli (\theta_k^t)$.
-
-
-\section{Lessons learnt}
-\textbf{We only evaluate this for one human data..????? maybe we should mention this in the beginning or something...?}
-
-\subsection{}
-Our inference method for human data cannot be applied to the full latent state model because there are two hidden variables: $z_i$, which denotes if state $i$ is exploring or exploiting, and $\gamma$, which is an accuracy of execution parameter depending on what situation the state is. Both these values are assumed to be uninformative priors in the original research [\ref{latent}] and drawn from either uniform or Bernoulli distributions. We cannot intuitively conclude why $P(action|data) = P(f(\theta)|data) = P(g(z,\gamma|data))$ would be conditionally independent of the rewards component and thus doing a grid search for highest $L$-value does not make sense. The ungeneralizability of $L$-value indicates that it may not be the correct method to do parameter inference.
