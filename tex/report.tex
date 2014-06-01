@@ -5,13 +5,15 @@
 \usepackage{algorithm}
 \usepackage{url}
 \usepackage{amsmath}
-\usepackage{mwe}
+%\usepackage{mwe}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{subfig}
 \usepackage{tabularx}
 \usepackage{epstopdf}
 \usepackage{bm}
+%\usepackage[backend=bibtex]{biblatex}
+\usepackage{bibentry}
 %\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -54,8 +56,39 @@
 \input{ResultsAndAnalysis}
 \input{Conclusion}
 \input{appendix}
-\bibliography{bib}{}
-\bibliographystyle{unsrt}
+%\bibliographystyle{unsrt}
+%\bibstyle{acmstyle}
+%\nobibliography{bib}
 
+\begin{thebibliography}{9}
+
+\bibitem{shunan2009}
+	\emph{Human and Optimal Exploration and Exploitation in Bandit Problems},
+	Shunan Zhang, Michael D Lee, Miles Munro,
+	2009.
+
+\bibitem{shunan2011}
+  \emph{Psychological models of human and optimal performance in bandit problems},
+  Michael D Lee, Shunan Zhang, Miles Munro, Mark Steyvers,
+  2011.
+
+\bibitem{shunan2013}
+ \emph{Forgetful Bayes and myopic planning: Human learning and decision-making in a bandit setting}
+  Shunan Zhang, Angela Yu
+  2013.
+
+\bibitem{steyvers}
+  \emph{A Bayesian Analysis of Human Decision-Making on Bandit Problems},
+  Mark Steyvers and Michael D Lee and Eric-Jan Wagenmakers
+  2008.
+  
+\bibitem{kaelbling}
+	\emph{Reinforcement learning: a survey},
+	Leslie Pack	Kaelbling, Michael L. Littman, Andrew W. Moore,
+	Journal of Artificial Intelligence Research,
+	1996.
+
+%
+\end{thebibliography}
 
 \end{document}
