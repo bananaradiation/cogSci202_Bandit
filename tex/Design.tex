@@ -70,9 +70,9 @@ We define the $L$-value as :
 \begin{split}
 	\label{eq:likelihood} 
 	L(Action,Reward|Data) &= P(Action,Reward|Data) \\
-						  &= P(f(\epsilon),f(\mu_k)|Data) \\
-						  &= P(f(\epsilon)|Data) P(f(\mu_k)|Data) \\	
-						  &= \epsilon^x (1-\epsilon)^{1-x} \mu_k^y (1-\mu_k)^{1-y}
+						  &= \prod_{t} P(f(\epsilon),f(\mu_k)|Data) \\
+						  &= \prod_{t} P(f(\epsilon)|Data) P(f(\mu_k)|Data) \\	
+						  &= \prod_{t} \epsilon^x (1-\epsilon)^{1-x} \mu_k^y (1-\mu_k)^{1-y}
 \end{split}
 \end{align}
 where data corresponds to the observed decision and reward sequence of human participants encoded in the binary value for $x$ and $y$, respectively. The random variables for action and reward are functions depending on the heuristic parameter, $\epsilon$, and arm$_k$'s reward probability, $\mu_k$. Additionally the actions are based on rules defined by each heuristic. Here we make the assumption that the probabiliy of the random variables Action and Reward given human data are independent. This assumption stems from our intuition that given data for a decision sequence, the probabilities for $\epsilon$ and $\mu$ are independent. This assumption may not hold true for human data, but if a heuristic is indeed capturing the best decision sequence, a human's expectation of $\mu$ would match the arm's true reward probability.
